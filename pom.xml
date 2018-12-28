@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>2.1.1.RELEASE</version>
+		<relativePath/> <!-- lookup parent from repository -->
+	</parent>
+	<groupId>com.example</groupId>
+	<artifactId>springBootDemo</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>jar</packaging>
+	<name>springBootDemo</name>
+	<description>Demo project for Spring Boot</description>
+
+	<properties>
+		<java.version>1.8</java.version>
+	</properties>
+
+	<dependencies>
+	
+		<!--spring date jpa
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
+		</dependency>
+		 -->
+		
+		<!-- spring security
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
+		 -->
+		
+		<!-- swagger -->
+	    <dependency>
+	        <groupId>io.springfox</groupId>
+	        <artifactId>springfox-swagger2</artifactId>
+	        <version>2.9.2</version>
+	        <!-- 当版本更新到2.9.2时,得到了一个警告:java.lang.NumberFormatException: For input string: "" -->
+	        <!-- 解决方案: 排除springfox-swagger2 引入的swagger-annotations、swagger-models 1.5.20版本 -->
+	        <exclusions>
+		        <exclusion>
+		            <groupId>io.swagger</groupId>
+		            <artifactId>swagger-annotations</artifactId>
+		        </exclusion>
+		        <exclusion>
+		            <groupId>io.swagger</groupId>
+		            <artifactId>swagger-models</artifactId>
+		        </exclusion>
+		    </exclusions>
+	    </dependency>
+	    <!-- 手动引入swagger-annotations、swagger-models 1.5.21版本的jar -->
+	    <dependency>
+		    <groupId>io.swagger</groupId>
+		    <artifactId>swagger-annotations</artifactId>
+		    <version>1.5.21</version>
+		</dependency>
+		<dependency>
+		    <groupId>io.swagger</groupId>
+		    <artifactId>swagger-models</artifactId>
+		    <version>1.5.21</version>
+		</dependency>
+	    <!-- swagger-ui -->
+	    <dependency>
+	        <groupId>io.springfox</groupId>
+	        <artifactId>springfox-swagger-ui</artifactId>
+	        <version>2.9.2</version>
+		</dependency>
+	
+		<!-- spring web -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+			<exclusions>
+				<!-- 移除Spring Boot中默认的logback依赖,自定义导入log4j -->
+				<exclusion>
+					<groupId>org.springframework.boot</groupId>
+					<artifactId>spring-boot-starter-logging</artifactId>
+				</exclusion>
+				<!-- 使用外置tomcat时,避免两者冲突, 打war需要排除内置tomcat, 或者导入外部tomcat设置为<scope>provided</scope>
+				<exclusion>
+					<groupId>org.springframework.boot</groupId>
+					<artifactId>spring-boot-starter-tomcat</artifactId>
+				</exclusion>
+				 -->
+			</exclusions>
+		</dependency>
+		
+		<!-- log4j -->
+		<dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-log4j</artifactId>
+            <version>1.3.8.RELEASE</version>
+        </dependency>
+        
+		<!-- spring aop -->
+		 <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-aop</artifactId>
+        </dependency>
+		
+		<!-- mybatis -->
+		 <dependency>
+			<groupId>org.mybatis.spring.boot</groupId>
+			<artifactId>mybatis-spring-boot-starter</artifactId>
+			<version>1.3.2</version>
+		</dependency>
+		
+		<!-- mysql -->
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+		
+		<!-- oracle 由于收费原因,maven仓库不提供jar包自动依赖, 需要手动放入本地库对应版本位置 -->
+		<!-- https://mvnrepository.com/artifact/com.oracle/ojdbc6 -->
+		<dependency>
+		    <groupId>com.oracle</groupId>
+		    <artifactId>ojdbc6</artifactId>
+		    <version>12.1.0.1-atlassian-hosted</version>
+		    <!-- <scope>test</scope> -->
+		</dependency>
+
+
+		
+		<!-- 外置tomcat容器  避免冲突设置provided
+		<dependency>
+	        <groupId>org.springframework.boot</groupId>
+	        <artifactId>spring-boot-starter-tomcat</artifactId>
+	        <scope>provided</scope>
+		</dependency>
+		 -->
+		<!-- 外置tomcat容器  JSP Need this to compile JSP
+		<dependency>
+			<groupId>org.apache.tomcat.embed</groupId>
+			<artifactId>tomcat-embed-jasper</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		 -->
+		<!-- jsp jstl
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>jstl</artifactId>
+		</dependency>
+		 -->
+		
+				
+		<!-- spring boot devtools
+		 -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-devtools</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+	
+	<!-- maven plugin -->
+	<build>
+		<finalName>springBootDemo</finalName><!-- 打成jar包的名称 -->
+		<plugins><!-- 需要引用的jar包 -->
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+		</plugins>
+	</build>
+
+
+</project>

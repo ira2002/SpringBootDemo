@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.springBootDemo.dao.UserInfoDAO">
+  <resultMap id="BaseResultMap" type="com.example.springBootDemo.entity.UserInfo">
+    <id column="ID" jdbcType="NUMERIC" property="id" />
+    <result column="LOGIN_NAME" jdbcType="VARCHAR" property="loginName" />
+    <result column="LOGIN_PASSWORD" jdbcType="VARCHAR" property="loginPassword" />
+    <result column="LOGIN_TYPE" jdbcType="VARCHAR" property="loginType" />
+    <result column="STATE" jdbcType="VARCHAR" property="state" />
+    <result column="PERSON_CODE" jdbcType="VARCHAR" property="personCode" />
+    <result column="CREATE_PERSON_CODE" jdbcType="VARCHAR" property="createPersonCode" />
+    <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="SECOND_PASSWORD" jdbcType="VARCHAR" property="secondPassword" />
+    <result column="FREEZE_DATE" jdbcType="TIMESTAMP" property="freezeDate" />
+    <result column="INSERT_TIMESTAMP" jdbcType="TIMESTAMP" property="insertTimestamp" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <trim prefix="where" prefixOverrides="and|or">
+      <if test="condition.loginName != null">
+         and LOGIN_NAME = #{condition.loginName,jdbcType=VARCHAR}
+      </if>
+      <if test="condition.loginPassword != null">
+         and LOGIN_PASSWORD = #{condition.loginPassword,jdbcType=VARCHAR}
+      </if>
+      <if test="condition.loginType != null">
+         and LOGIN_TYPE = #{condition.loginType,jdbcType=VARCHAR}
+      </if>
+      <if test="condition.state != null">
+         and STATE = #{condition.state,jdbcType=VARCHAR}
+      </if>
+      <if test="condition.personCode != null">
+         and PERSON_CODE = #{condition.personCode,jdbcType=VARCHAR}
+      </if>
+      <if test="condition.createPersonCode != null">
+         and CREATE_PERSON_CODE = #{condition.createPersonCode,jdbcType=VARCHAR}
+      </if>
+      <if test="condition.createTime != null">
+         and CREATE_TIME = #{condition.createTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="condition.secondPassword != null">
+         and SECOND_PASSWORD = #{condition.secondPassword,jdbcType=VARCHAR}
+      </if>
+      <if test="condition.freezeDate != null">
+         and FREEZE_DATE = #{condition.freezeDate,jdbcType=TIMESTAMP}
+      </if>
+      <if test="condition.insertTimestamp != null">
+         and INSERT_TIMESTAMP = #{condition.insertTimestamp,jdbcType=TIMESTAMP}
+      </if>
+    </trim>
+  </sql>
+  <sql id="Base_Column_List">
+    ID, LOGIN_NAME, LOGIN_PASSWORD, LOGIN_TYPE, STATE, PERSON_CODE, CREATE_PERSON_CODE, 
+    CREATE_TIME, SECOND_PASSWORD, FREEZE_DATE, INSERT_TIMESTAMP
+  </sql>
+  <select id="selectByExample" parameterType="com.example.springBootDemo.entity.Criteria" resultMap="BaseResultMap">
+    <include refid="common.Oracle_Pagination_Head" />
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from T_USER_INFO
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <include refid="common.Oracle_Pagination_Tail" />
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.math.BigDecimal" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from T_USER_INFO
+    where ID = #{id,jdbcType=NUMERIC}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.math.BigDecimal">
+    delete from T_USER_INFO
+    where ID = #{id,jdbcType=NUMERIC}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.example.springBootDemo.entity.Criteria">
+    delete from T_USER_INFO
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.example.springBootDemo.entity.UserInfo">
+    <selectKey keyProperty="id" order="BEFORE" resultType="java.math.BigDecimal">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into T_USER_INFO (ID, LOGIN_NAME, LOGIN_PASSWORD, 
+      LOGIN_TYPE, STATE, PERSON_CODE, 
+      CREATE_PERSON_CODE, CREATE_TIME, SECOND_PASSWORD, 
+      FREEZE_DATE, INSERT_TIMESTAMP)
+    values (#{id,jdbcType=NUMERIC}, #{loginName,jdbcType=VARCHAR}, #{loginPassword,jdbcType=VARCHAR}, 
+      #{loginType,jdbcType=VARCHAR}, #{state,jdbcType=VARCHAR}, #{personCode,jdbcType=VARCHAR}, 
+      #{createPersonCode,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{secondPassword,jdbcType=VARCHAR}, 
+      #{freezeDate,jdbcType=TIMESTAMP}, #{insertTimestamp,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.example.springBootDemo.entity.UserInfo">
+    <selectKey keyProperty="id" order="BEFORE" resultType="java.math.BigDecimal">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into T_USER_INFO
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      ID,
+      <if test="loginName != null">
+        LOGIN_NAME,
+      </if>
+      <if test="loginPassword != null">
+        LOGIN_PASSWORD,
+      </if>
+      <if test="loginType != null">
+        LOGIN_TYPE,
+      </if>
+      <if test="state != null">
+        STATE,
+      </if>
+      <if test="personCode != null">
+        PERSON_CODE,
+      </if>
+      <if test="createPersonCode != null">
+        CREATE_PERSON_CODE,
+      </if>
+      <if test="createTime != null">
+        CREATE_TIME,
+      </if>
+      <if test="secondPassword != null">
+        SECOND_PASSWORD,
+      </if>
+      <if test="freezeDate != null">
+        FREEZE_DATE,
+      </if>
+      <if test="insertTimestamp != null">
+        INSERT_TIMESTAMP,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      #{id,jdbcType=NUMERIC},
+      <if test="loginName != null">
+        #{loginName,jdbcType=VARCHAR},
+      </if>
+      <if test="loginPassword != null">
+        #{loginPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="loginType != null">
+        #{loginType,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null">
+        #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="personCode != null">
+        #{personCode,jdbcType=VARCHAR},
+      </if>
+      <if test="createPersonCode != null">
+        #{createPersonCode,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="secondPassword != null">
+        #{secondPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="freezeDate != null">
+        #{freezeDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="insertTimestamp != null">
+        #{insertTimestamp,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.example.springBootDemo.entity.Criteria" resultType="java.lang.Long">
+    select count(*) from T_USER_INFO
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update T_USER_INFO
+    <set>
+      <if test="record.id != null">
+        ID = #{record.id,jdbcType=NUMERIC},
+      </if>
+      <if test="record.loginName != null">
+        LOGIN_NAME = #{record.loginName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.loginPassword != null">
+        LOGIN_PASSWORD = #{record.loginPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="record.loginType != null">
+        LOGIN_TYPE = #{record.loginType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.state != null">
+        STATE = #{record.state,jdbcType=VARCHAR},
+      </if>
+      <if test="record.personCode != null">
+        PERSON_CODE = #{record.personCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createPersonCode != null">
+        CREATE_PERSON_CODE = #{record.createPersonCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null">
+        CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.secondPassword != null">
+        SECOND_PASSWORD = #{record.secondPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="record.freezeDate != null">
+        FREEZE_DATE = #{record.freezeDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.insertTimestamp != null">
+        INSERT_TIMESTAMP = #{record.insertTimestamp,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update T_USER_INFO
+    set ID = #{record.id,jdbcType=NUMERIC},
+      LOGIN_NAME = #{record.loginName,jdbcType=VARCHAR},
+      LOGIN_PASSWORD = #{record.loginPassword,jdbcType=VARCHAR},
+      LOGIN_TYPE = #{record.loginType,jdbcType=VARCHAR},
+      STATE = #{record.state,jdbcType=VARCHAR},
+      PERSON_CODE = #{record.personCode,jdbcType=VARCHAR},
+      CREATE_PERSON_CODE = #{record.createPersonCode,jdbcType=VARCHAR},
+      CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
+      SECOND_PASSWORD = #{record.secondPassword,jdbcType=VARCHAR},
+      FREEZE_DATE = #{record.freezeDate,jdbcType=TIMESTAMP},
+      INSERT_TIMESTAMP = #{record.insertTimestamp,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.springBootDemo.entity.UserInfo">
+    update T_USER_INFO
+    <set>
+      <if test="loginName != null">
+        LOGIN_NAME = #{loginName,jdbcType=VARCHAR},
+      </if>
+      <if test="loginPassword != null">
+        LOGIN_PASSWORD = #{loginPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="loginType != null">
+        LOGIN_TYPE = #{loginType,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null">
+        STATE = #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="personCode != null">
+        PERSON_CODE = #{personCode,jdbcType=VARCHAR},
+      </if>
+      <if test="createPersonCode != null">
+        CREATE_PERSON_CODE = #{createPersonCode,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="secondPassword != null">
+        SECOND_PASSWORD = #{secondPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="freezeDate != null">
+        FREEZE_DATE = #{freezeDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="insertTimestamp != null">
+        INSERT_TIMESTAMP = #{insertTimestamp,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=NUMERIC}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.example.springBootDemo.entity.UserInfo">
+    update T_USER_INFO
+    set LOGIN_NAME = #{loginName,jdbcType=VARCHAR},
+      LOGIN_PASSWORD = #{loginPassword,jdbcType=VARCHAR},
+      LOGIN_TYPE = #{loginType,jdbcType=VARCHAR},
+      STATE = #{state,jdbcType=VARCHAR},
+      PERSON_CODE = #{personCode,jdbcType=VARCHAR},
+      CREATE_PERSON_CODE = #{createPersonCode,jdbcType=VARCHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      SECOND_PASSWORD = #{secondPassword,jdbcType=VARCHAR},
+      FREEZE_DATE = #{freezeDate,jdbcType=TIMESTAMP},
+      INSERT_TIMESTAMP = #{insertTimestamp,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=NUMERIC}
+  </update>
+</mapper>
